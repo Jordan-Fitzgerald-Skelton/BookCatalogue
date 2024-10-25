@@ -70,4 +70,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     patch book_url(@book), params: { book: { author: @book.author, description: @book.description, genre: @book.genre, pages: @book.pages, price: @book.price, rating: "", title: @book.title } }, as: :json
     assert_not (200...299).include?(response.code.to_i)
   end
+
+  test "should not update book without title" do
+    patch book_url(@book), params: { book: { title: nil } }
+    assert_not @book.reload.title.nil?, "Book was updated despite missing title"
+  end
+
 end

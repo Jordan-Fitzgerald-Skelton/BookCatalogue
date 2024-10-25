@@ -29,6 +29,4 @@ class BookDecorator < SimpleDelegator
   def formatted_rating
     "Rating: #{rating} / 5"
   end
-
-
 end
