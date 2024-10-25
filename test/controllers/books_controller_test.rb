@@ -75,5 +75,4 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     patch book_url(@book), params: { book: { title: nil } }
     assert_not @book.reload.title.nil?, "Book was updated despite missing title"
   end
-
 end
