@@ -1,6 +1,5 @@
-require "delegate"
-# Decorator design pattern
-# Sets the format for each parameter
+require 'delegate'
+# Decorator design pattern for formatted attributes
 class BookDecorator < SimpleDelegator
   def formatted_title
     "Title: #{title}"
@@ -23,7 +22,7 @@ class BookDecorator < SimpleDelegator
   end
 
   def formatted_price
-    "Pages: #{price}"
+    "Price: €#{price}"
   end
 
   def formatted_rating
