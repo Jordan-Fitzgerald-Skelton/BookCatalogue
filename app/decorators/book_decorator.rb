@@ -1,4 +1,4 @@
-require 'delegate'
+require "delegate"
 # Decorator design pattern for formatted attributes
 class BookDecorator < SimpleDelegator
   def formatted_title
