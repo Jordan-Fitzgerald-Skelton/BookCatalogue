@@ -41,8 +41,12 @@ jobs:
             pkill -f "rails server" || true
             
             # Install dependencies, migrate the database, and Start the application
+            #some gems require Ruby development headers, which may not be installed by default
+            #ruby-dev package provides the development files necessary for compiling native extensions
+            #build-essential includes essential build tools like make and gcc.
             sudo apt-get update
             sudo apt-get install -y ruby-dev build-essential
+            #installs and updates gems
             sudo bundle install
             sudo bundle update
             rails db:migrate
