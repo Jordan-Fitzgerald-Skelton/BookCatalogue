@@ -42,7 +42,7 @@ jobs:
             
             # Install dependencies, migrate the database, and Start the application
             # When the application would start - the workflow would run until the rails server was terminated.
-            gem install bundler  # Install bundler if not already installed
+            sudo gem install bundler  # Install bundler if not already installed
             bundle install
             bundle update
             rails db:migrate
