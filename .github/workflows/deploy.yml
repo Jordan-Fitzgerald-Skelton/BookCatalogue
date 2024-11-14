@@ -2,7 +2,8 @@ name: "Backend Update"
 
 on:
   push:
-    branches: [ "master" ]
+    branches: 
+    - master
 
 jobs:
   deploy:
@@ -32,7 +33,7 @@ jobs:
             # Exit if error occurs
             set -e
             # Navigate to pRecipe App directory
-            cd /home/ubuntu/BookCatalogue
+            cd /BookCatalogue
             # Pull repository state to vm
             git pull origin master
             
