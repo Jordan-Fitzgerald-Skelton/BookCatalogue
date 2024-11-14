@@ -9,14 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Deploy to EC2
-      env:
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.BACKENDKEY }}
-
-    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
