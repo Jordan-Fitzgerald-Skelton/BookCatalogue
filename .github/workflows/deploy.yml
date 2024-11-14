@@ -33,7 +33,7 @@ jobs:
             # Exit if error occurs
             set -e
             # Navigate to pRecipe App directory
-            cd /BookCatalogue
+            cd /home/ubuntu/BookCatalogue
             # Pull repository state to vm
             git pull origin master
             
