@@ -41,6 +41,8 @@ jobs:
             pkill -f "rails server" || true
             
             # Install dependencies, migrate the database, and Start the application
+            sudo apt-get update
+            sudo apt-get install -y ruby-dev build-essential
             sudo bundle install
             sudo bundle update
             rails db:migrate
