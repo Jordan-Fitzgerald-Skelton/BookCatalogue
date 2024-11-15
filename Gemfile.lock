@@ -279,6 +279,8 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (2.6.0)
     useragent (0.16.10)
+    vcr (6.3.1)
+      base64
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -311,6 +313,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
+  vcr
 
 BUNDLED WITH
    2.5.22

@@ -46,6 +46,8 @@ gem "active_model_serializers"
 group :development, :production, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  # gem file used for testing the api
+  gem "vcr"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman"
