@@ -38,6 +38,21 @@ class BooksController < ApplicationController
     head :no_content
   end
 
+  # GET /books/search
+  def search
+    query = params[:q]
+    if query.present?
+      response = HTTP.get("https://www.googleapis.com/books/v1/volumes", params: { q: query, key: Rails.application.credentials.google_books_api_key })
+      if response.status.success?
+        render json: response.parse
+      else
+        render json: { error: 'Unable to fetch books from Google API' }, status: :bad_request
+      end
+    else
+      render json: { error: 'Query parameter is missing' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_decorated_book
