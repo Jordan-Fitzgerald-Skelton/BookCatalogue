@@ -46,10 +46,10 @@ class BooksController < ApplicationController
       if response.status.success?
         render json: response.parse
       else
-        render json: { error: 'Unable to fetch books from Google API' }, status: :bad_request
+        render json: { error: "Unable to fetch books from Google API" }, status: :bad_request
       end
     else
-      render json: { error: 'Query parameter is missing' }, status: :unprocessable_entity
+      render json: { error: "Query parameter is missing" }, status: :unprocessable_entity
     end
   end
 
