@@ -1,8 +1,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
-require 'vcr'
-require 'webmock/minitest'
+require "vcr"
+require "webmock/minitest"
 
 # VCR Configuration for mocking external HTTP requests
 VCR.configure do |config|
