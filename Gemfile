@@ -48,6 +48,7 @@ group :development, :production, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   # gem file used for testing the api
   gem "vcr"
+  gem "webmock"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman"
