@@ -41,17 +41,17 @@ class BooksController < ApplicationController
   # GET /books/search
   def search
     query = params[:q]
-    
+
     if query.present?
       begin
         response = HTTP.get("https://www.googleapis.com/books/v1/volumes", params: { q: query, key: Rails.application.credentials.google_books_api_key })
 
         if response.status.success?
-          books = response.parse['items'].map do |item|
+          books = response.parse["items"].map do |item|
             {
-              title: item.dig('volumeInfo', 'title'),
-              authors: item.dig('volumeInfo', 'authors'),
-              description: item.dig('volumeInfo', 'description')
+              title: item.dig("volumeInfo", "title"),
+              authors: item.dig("volumeInfo", "authors"),
+              description: item.dig("volumeInfo", "description")
             }
           end
           render json: { items: books }
