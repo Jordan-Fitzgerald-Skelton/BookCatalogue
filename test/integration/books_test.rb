@@ -105,7 +105,7 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
   test "should search books with valid query" do
     query = "Harry Potter"
     VCR.use_cassette("google_books_search_harry_potter") do
-      get search_books_url, params: { q: query }, as: :json
+      get "/books/search", params: { q: query }, as: :json
       assert_response :success
     end
   end
@@ -118,7 +118,7 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should return error if google api call fails" do
     VCR.use_cassette("google_books_search_error") do
-      get search_books_url, params: { q: "Invalid Query" }, as: :json
+      get "/books/search", params: { q: "Invalid Query" }, as: :json
       assert_response :bad_request
       assert_includes @response.body, "Unable to fetch books from Google API"
     end
