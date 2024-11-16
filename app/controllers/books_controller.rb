@@ -1,15 +1,15 @@
 class BooksController < ApplicationController
-  before_action :set_decorated_book, only: %i[show update destroy]
+  before_action :set_book, only: %i[show update destroy]
 
   # GET /books
   def index
     @books = Book.all
-    render json: @books, each_serializer: BookSerializer
+    render json: @books
   end
 
   # GET /books/1
   def show
-    render json: @book, serializer: BookSerializer
+    render json: @book
   end
 
   # POST /books
@@ -17,7 +17,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render json: @book, status: :created, location: @book, serializer: BookSerializer
+      render json: @book, status: :created, location: @book
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class BooksController < ApplicationController
   def update
     logger.debug "Received params: #{params.inspect}"
     if @book.update(book_params)
-      render json: @book, serializer: BookSerializer
+      render json: @book
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -56,7 +56,7 @@ class BooksController < ApplicationController
 
   private
 
-  def set_decorated_book
+  def set_book
     @book = Book.find(params[:id])
   end
 
