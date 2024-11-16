@@ -25,12 +25,13 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1
   def update
+    logger.debug "Received params: #{params.inspect}"
     if @book.update(book_params)
       render json: @book, serializer: BookSerializer
     else
       render json: @book.errors, status: :unprocessable_entity
     end
-  end
+  end  
 
   # DELETE /books/1
   def destroy
