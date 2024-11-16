@@ -41,23 +41,23 @@ class BooksController < ApplicationController
   # GET /books/search
   def search
     query = params[:q]
-  
+
     if query.present?
       begin
         response = HTTP.get("https://www.googleapis.com/books/v1/volumes", params: { q: query, key: Rails.application.credentials.google_books_api_key })
-  
+
         if response.status.success?
           books = response.parse["items"]&.map do |item|
             volume_info = item["volumeInfo"] || {}
             {
               id: item["id"],
               title: volume_info["title"] || "No Title",
-              authors: volume_info["authors"] || ["Unknown Author"],
+              authors: volume_info["authors"] || [ "Unknown Author" ],
               description: volume_info["description"] || "No Description",
               infoLink: volume_info["infoLink"] || "#"
             }
           end || []
-  
+
           render json: { items: books }
         else
           render json: { error: "Unable to fetch books from Google API" }, status: :bad_request
@@ -68,7 +68,7 @@ class BooksController < ApplicationController
     else
       render json: { error: "Query parameter is missing" }, status: :unprocessable_entity
     end
-  end  
+  end
 
   private
 
