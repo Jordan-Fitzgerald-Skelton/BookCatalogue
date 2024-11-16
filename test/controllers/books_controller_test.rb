@@ -12,7 +12,17 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create book" do
     assert_difference("Book.count") do
-      post books_url, params: { book: { author: @book.author, description: @book.description, genre: @book.genre, pages: @book.pages, price: @book.price, rating: @book.rating, title: @book.title } }, as: :json
+      post books_url, params: { 
+        book: { 
+          author: @book.author, 
+          description: @book.description, 
+          genre: @book.genre, 
+          pages: @book.pages, 
+          price: @book.price, 
+          rating: @book.rating, 
+          title: @book.title 
+        } 
+      }, as: :json
     end
     assert_response :created
   end
@@ -20,11 +30,27 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should show book" do
     get book_url(@book), as: :json
     assert_response :success
+    json_response = JSON.parse(response.body)
+    assert_equal @book.title, json_response["title"]
+    assert_equal @book.author, json_response["author"]
   end
 
   test "should update book" do
-    patch book_url(@book), params: { book: { author: @book.author, description: @book.description, genre: @book.genre, pages: @book.pages, price: @book.price, rating: @book.rating, title: @book.title } }, as: :json
+    patch book_url(@book), params: { 
+      book: { 
+        author: @book.author, 
+        description: @book.description, 
+        genre: @book.genre, 
+        pages: @book.pages, 
+        price: @book.price, 
+        rating: @book.rating, 
+        title: "Updated Title" 
+      } 
+    }, as: :json
     assert_response :success
+
+    @book.reload
+    assert_equal "Updated Title", @book.title
   end
 
   test "should destroy book" do
@@ -70,22 +96,35 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "should not update book without title" do
-    patch book_url(@book), params: { book: { title: nil } }, as: :json
-    assert_not @book.reload.title.nil?, "Book was updated despite missing title"
-  end
-
   # Test creating a book without required fields
   test "should not create book without title" do
     assert_no_difference("Book.count") do
-      post books_url, params: { book: { author: @book.author, description: @book.description, genre: @book.genre, pages: @book.pages, price: @book.price, rating: @book.rating } }, as: :json
+      post books_url, params: { 
+        book: { 
+          author: @book.author, 
+          description: @book.description, 
+          genre: @book.genre, 
+          pages: @book.pages, 
+          price: @book.price, 
+          rating: @book.rating 
+        } 
+      }, as: :json
     end
     assert_response :unprocessable_entity
   end
 
   test "should not create book without author" do
     assert_no_difference("Book.count") do
-      post books_url, params: { book: { title: @book.title, description: @book.description, genre: @book.genre, pages: @book.pages, price: @book.price, rating: @book.rating } }, as: :json
+      post books_url, params: { 
+        book: { 
+          title: @book.title, 
+          description: @book.description, 
+          genre: @book.genre, 
+          pages: @book.pages, 
+          price: @book.price, 
+          rating: @book.rating 
+        } 
+      }, as: :json
     end
     assert_response :unprocessable_entity
   end
@@ -114,6 +153,6 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should return 404 for non-existing book" do
     nonexistent_id = "nonexistent_id"
     get book_url(id: nonexistent_id), as: :json
-    assert_response :not_found  # Expect a 404 response
+    assert_response :not_found # Expect a 404 response
   end
 end

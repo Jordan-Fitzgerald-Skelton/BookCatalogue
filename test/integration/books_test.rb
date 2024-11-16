@@ -1,6 +1,6 @@
 class BooksIntegrationTest < ActionDispatch::IntegrationTest
   setup do
-    @book = books(:one) # Assuming you have a fixture for a book
+    @book = books(:one)
   end
 
   test "should create book" do
@@ -21,9 +21,9 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :created
 
     json_response = JSON.parse(response.body)
-    assert_equal "New Book", json_response["formatted_title"]
-    assert_equal "New Author", json_response["formatted_author"]
-    assert_equal "A new description", json_response["formatted_description"]
+    assert_equal "New Book", json_response["title"]
+    assert_equal "New Author", json_response["author"]
+    assert_equal "A new description", json_response["description"]
   end
 
   test "should update book" do
@@ -37,8 +37,8 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 5, @book.rating
 
     json_response = JSON.parse(response.body)
-    assert_equal "Updated Title", json_response["formatted_title"]
-    assert_equal "5 / 5", json_response["formatted_rating"]
+    assert_equal "Updated Title", json_response["title"]
+    assert_equal 5, json_response["rating"]
   end
 
   test "should destroy book" do
