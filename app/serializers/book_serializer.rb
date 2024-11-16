@@ -1,5 +1,5 @@
 # Specifies which attributes of the Book model will be included in the JSON response
-# Also includes a decorator design pattern for formatting 
+# Also includes a decorator design pattern for formatting
 class BookSerializer < ActiveModel::Serializer
   attributes :id, :formatted_title, :formatted_author, :formatted_description, :formatted_genre, :formatted_pages, :formatted_price, :formatted_rating
 
