@@ -126,10 +126,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     VCR.use_cassette("google_books_search_error") do
       get search_books_url, params: { q: "InvalidQuery" }, as: :json
       assert_response :bad_request
-      response_body = JSON.parse(@response.body)
+      response_body = JSON.parse(response.body)
       assert_equal "Unable to fetch books from Google API", response_body["error"]
     end
-  end  
+  end    
 
   test "should return 404 for non-existing book" do
     nonexistent_id = "nonexistent_id"
