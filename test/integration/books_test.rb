@@ -39,9 +39,9 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :created
 
     json_response = JSON.parse(response.body)
-    assert_equal "Title: New Book", json_response["formatted_title"]
-    assert_equal "Author: New Author", json_response["formatted_author"]
-    assert_equal "Description: A new description", json_response["formatted_description"]
+    assert_equal "New Book", json_response["formatted_title"]
+    assert_equal "New Author", json_response["formatted_author"]
+    assert_equal "A new description", json_response["formatted_description"]
   end
 
   test "should update book" do
@@ -55,8 +55,8 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 5, @book.rating
 
     json_response = JSON.parse(response.body)
-    assert_equal "Title: Updated Title", json_response["formatted_title"]
-    assert_equal "Rating: 5 / 5", json_response["formatted_rating"]
+    assert_equal "Updated Title", json_response["formatted_title"]
+    assert_equal "5 / 5", json_response["formatted_rating"]
   end
 
   test "should destroy book" do
