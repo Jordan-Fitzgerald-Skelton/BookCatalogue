@@ -12,16 +12,16 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create book" do
     assert_difference("Book.count") do
-      post books_url, params: { 
-        book: { 
-          author: @book.author, 
-          description: @book.description, 
-          genre: @book.genre, 
-          pages: @book.pages, 
-          price: @book.price, 
-          rating: @book.rating, 
-          title: @book.title 
-        } 
+      post books_url, params: {
+        book: {
+          author: @book.author,
+          description: @book.description,
+          genre: @book.genre,
+          pages: @book.pages,
+          price: @book.price,
+          rating: @book.rating,
+          title: @book.title
+        }
       }, as: :json
     end
     assert_response :created
@@ -36,16 +36,16 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update book" do
-    patch book_url(@book), params: { 
-      book: { 
-        author: @book.author, 
-        description: @book.description, 
-        genre: @book.genre, 
-        pages: @book.pages, 
-        price: @book.price, 
-        rating: @book.rating, 
-        title: "Updated Title" 
-      } 
+    patch book_url(@book), params: {
+      book: {
+        author: @book.author,
+        description: @book.description,
+        genre: @book.genre,
+        pages: @book.pages,
+        price: @book.price,
+        rating: @book.rating,
+        title: "Updated Title"
+      }
     }, as: :json
     assert_response :success
 
@@ -99,15 +99,15 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   # Test creating a book without required fields
   test "should not create book without title" do
     assert_no_difference("Book.count") do
-      post books_url, params: { 
-        book: { 
-          author: @book.author, 
-          description: @book.description, 
-          genre: @book.genre, 
-          pages: @book.pages, 
-          price: @book.price, 
-          rating: @book.rating 
-        } 
+      post books_url, params: {
+        book: {
+          author: @book.author,
+          description: @book.description,
+          genre: @book.genre,
+          pages: @book.pages,
+          price: @book.price,
+          rating: @book.rating
+        }
       }, as: :json
     end
     assert_response :unprocessable_entity
@@ -115,15 +115,15 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create book without author" do
     assert_no_difference("Book.count") do
-      post books_url, params: { 
-        book: { 
-          title: @book.title, 
-          description: @book.description, 
-          genre: @book.genre, 
-          pages: @book.pages, 
-          price: @book.price, 
-          rating: @book.rating 
-        } 
+      post books_url, params: {
+        book: {
+          title: @book.title,
+          description: @book.description,
+          genre: @book.genre,
+          pages: @book.pages,
+          price: @book.price,
+          rating: @book.rating
+        }
       }, as: :json
     end
     assert_response :unprocessable_entity
