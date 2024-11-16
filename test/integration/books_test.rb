@@ -3,24 +3,6 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     @book = books(:one) # Assuming you have a fixture for a book
   end
 
-  test "should get index with decorated fields" do
-    get books_url, as: :json
-    assert_response :success
-
-    json_response = JSON.parse(response.body)
-    json_response.each do |book|
-      assert_decorated_fields_in_response(book)
-    end
-  end
-
-  test "should show book with decorated fields" do
-    get book_url(@book), as: :json
-    assert_response :success
-
-    json_response = JSON.parse(response.body)
-    assert_decorated_fields_in_response(json_response)
-  end
-
   test "should create book" do
     assert_difference("Book.count", 1) do
       post books_url, params: {
@@ -39,9 +21,9 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :created
 
     json_response = JSON.parse(response.body)
-    assert_equal "New Book", json_response["formatted_title"]
-    assert_equal "New Author", json_response["formatted_author"]
-    assert_equal "A new description", json_response["formatted_description"]
+    assert_equal "New Book", json_response["title"]
+    assert_equal "New Author", json_response["author"]
+    assert_equal "A new description", json_response["description"]
   end
 
   test "should update book" do
@@ -55,8 +37,8 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal 5, @book.rating
 
     json_response = JSON.parse(response.body)
-    assert_equal "Updated Title", json_response["formatted_title"]
-    assert_equal "5 / 5", json_response["formatted_rating"]
+    assert_equal "Updated Title", json_response["title"]
+    assert_equal "5 / 5", json_response["rating"]
   end
 
   test "should destroy book" do

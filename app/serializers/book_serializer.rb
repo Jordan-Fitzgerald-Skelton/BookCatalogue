@@ -1,8 +1,8 @@
-# Specifies which attributes of the Book model will be included in the JSON response
-# Also includes a decorator design pattern for formatting
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :title, :author, :description, :genre, :pages, :price, :rating
+  # Only include the decorated attributes in the response
+  attributes :id, :formatted_title, :formatted_author, :formatted_description, :formatted_genre, :formatted_pages, :formatted_price, :formatted_rating
 
+  # Use the decorator to format the attributes
   def formatted_title
     BookDecorator.new(object).formatted_title
   end
