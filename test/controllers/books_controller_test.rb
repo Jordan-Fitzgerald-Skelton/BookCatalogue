@@ -104,15 +104,16 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  # Test the search action with a valid query
   test "should search books with valid query" do
     query = "Harry Potter"
     VCR.use_cassette("google_books_search_harry_potter") do
       get search_books_url, params: { q: query }, as: :json
       assert_response :success
-      assert_not_empty JSON.parse(response.body)["items"] # Ensure search results are present
+      items = JSON.parse(response.body)["items"]
+      assert_not_nil items # Ensure items key exists
+      assert_not_empty items # Ensure results are present
     end
-  end
+  end  
 
   # Test the search action when no query is provided
   test "should return error if search query is missing" do
@@ -121,19 +122,18 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, "Query parameter is missing"
   end
 
-  # Test the search action when Google Books API fails
   test "should return error if google api call fails" do
     VCR.use_cassette("google_books_search_error") do
       get search_books_url, params: { q: "InvalidQuery" }, as: :json
       assert_response :bad_request
-      assert_includes @response.body, "Unable to fetch books from Google API"
+      response_body = JSON.parse(@response.body)
+      assert_equal "Unable to fetch books from Google API", response_body["error"]
     end
-  end
+  end  
 
-  # Test for non-existing book scenario
   test "should return 404 for non-existing book" do
-    assert_raises(ActiveRecord::RecordNotFound) do
-      get book_url(id: "nonexistent_id"), as: :json
-    end
+    nonexistent_id = "nonexistent_id"
+    get book_url(id: nonexistent_id), as: :json
+    assert_response :not_found  # Expect a 404 response
   end
 end
