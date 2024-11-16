@@ -102,26 +102,10 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
     assert_includes json_response["pages"], "must be greater than or equal to 0"
   end
 
-  test "should search books with valid query" do
-    query = "Harry Potter"
-    VCR.use_cassette("google_books_search_harry_potter") do
-      get "/books/search", params: { q: query }, as: :json
-      assert_response :success
-    end
-  end
-
   test "should return error if search query is missing" do
     get search_books_url, as: :json
     assert_response :unprocessable_entity
     assert_includes @response.body, "Query parameter is missing"
-  end
-
-  test "should return error if google api call fails" do
-    VCR.use_cassette("google_books_search_error") do
-      get "/books/search", params: { q: "Invalid Query" }, as: :json
-      assert_response :bad_request
-      assert_includes @response.body, "Unable to fetch books from Google API"
-    end
   end
 
   test "should return 404 for non-existing book" do

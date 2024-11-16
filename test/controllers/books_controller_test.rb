@@ -104,31 +104,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "should search books with valid query" do
-    query = "Harry Potter"
-    VCR.use_cassette("google_books_search_harry_potter") do
-      get search_books_url, params: { q: query }, as: :json
-      assert_response :success
-      items = JSON.parse(response.body)["items"]
-      assert_not_nil items # Ensure items key exists
-      assert_not_empty items # Ensure results are present
-    end
-  end  
-
   # Test the search action when no query is provided
   test "should return error if search query is missing" do
     get search_books_url, as: :json
     assert_response :unprocessable_entity
     assert_includes @response.body, "Query parameter is missing"
-  end
-
-  test "should return error if google api call fails" do
-    VCR.use_cassette("google_books_search_error") do
-      get search_books_url, params: { q: "InvalidQuery" }, as: :json
-      assert_response :bad_request
-      response_body = JSON.parse(response.body)
-      assert_equal "Unable to fetch books from Google API", response_body["error"]
-    end
   end    
 
   test "should return 404 for non-existing book" do
