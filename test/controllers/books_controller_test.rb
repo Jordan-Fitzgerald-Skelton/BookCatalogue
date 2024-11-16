@@ -109,7 +109,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     get search_books_url, as: :json
     assert_response :unprocessable_entity
     assert_includes @response.body, "Query parameter is missing"
-  end    
+  end
 
   test "should return 404 for non-existing book" do
     nonexistent_id = "nonexistent_id"
