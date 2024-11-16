@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #to help with the googlebook search functionality
   resources :books do
     collection do
       get "search", to: "books#search"
