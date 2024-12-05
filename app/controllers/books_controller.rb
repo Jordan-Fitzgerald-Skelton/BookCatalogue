@@ -17,7 +17,9 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render json: @book, status: :created, location: @book
+      # Use the BookDecorator to format the book attributes before sending the response
+      decorated_book = BookDecorator.new(@book)
+      render json: decorated_book, status: :created, location: @book
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -27,7 +29,9 @@ class BooksController < ApplicationController
   def update
     logger.debug "Received params: #{params.inspect}"
     if @book.update(book_params)
-      render json: @book
+      # Use the BookDecorator to format the updated book before sending the response
+      decorated_book = BookDecorator.new(@book)
+      render json: decorated_book
     else
       render json: @book.errors, status: :unprocessable_entity
     end
